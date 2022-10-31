@@ -40,7 +40,6 @@ resource "aws_s3_bucket_object" "codigo_spark" {
 }
 
 provider "aws" {
-  profile = "default"
   region  = var.regiao
 
 }
