@@ -33,7 +33,7 @@ def handler(event, context):
                     'Ec2KeyName': 'ricardonn-igti-teste',
                     'KeepJobFlowAliveWhenNoSteps': True,
                     'TerminationProtected': False,
-                    'Ec2SubnetId': 'subnet-1df20360'
+                    'Ec2SubnetId': 'subnet-0d60fa3a6acf38905'
                 },
 
                 Applications=[
