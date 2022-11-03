@@ -39,12 +39,32 @@ resource "aws_s3_bucket_object" "codigo_spark" {
   # etag controla se o arquivo foi mudado e precisa ser enviado novamente quando for rodar este script
 }
 
+resource "aws_s3_bucket_object" "delta_insert" {
+  bucket = aws_s3_bucket_server_side_encryption_configuration.datalake.id
+  key    = "emr-code/pyspark/01_delta_spark_insert.py"
+  acl    = "private"
+  source = "../01_delta_spark_insert.py"
+  etag   = filemd5("../job_emr_spark.py")
+  # etag controla se o arquivo foi mudado e precisa ser enviado novamente quando for rodar este script
+}
+
+
+resource "aws_s3_bucket_object" "delta_upsert" {
+  bucket = aws_s3_bucket_server_side_encryption_configuration.datalake.id
+  key    = "emr-code/pyspark/02_delta_spark_upsert.py"
+  acl    = "private"
+  source = "../02_delta_spark_upsert.py"
+  etag   = filemd5("../job_emr_spark.py")
+  # etag controla se o arquivo foi mudado e precisa ser enviado novamente quando for rodar este script
+}
+
+
 provider "aws" {
   region  = var.regiao
 
 }
 
-# Centralizar o arquivo de controle de estado do terraform
+# Centralizar o arquivo de controle de estado do terraform. Este bucket precisa já estar criado.
 terraform {
   backend s3 {
     bucket = "terraform-state-igti-ricardonn"
