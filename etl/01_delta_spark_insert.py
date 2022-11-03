@@ -13,13 +13,18 @@ spark = (SparkSession.builder.appName("DeltaExercise")
 from delta.tables import *
 
 # Leitura de dados
+#enem = (
+ #   spark.read.format("csv")
+  #  .option("inferSchema", True)
+   # .option("header", True)
+   # .option("delimiter", ";")
+   # .load("s3://datalake-igti-m1-terraform-producao-945696890928/raw-data/enem/2020")
+#)
 enem = (
-    spark.read.format("csv")
-    .option("inferSchema", True)
-    .option("header", True)
-    .option("delimiter", ";")
-    .load("s3://datalake-igti-m1-terraform-producao-945696890928/raw-data/enem/2020")
+    spark.read.format("parquet")
+    .load("s3://datalake-ricardonn-945696890928/staging/enem")
 )
+
 
 # Escreve a tabela em staging em formato delta
 print("Writing delta table...")
